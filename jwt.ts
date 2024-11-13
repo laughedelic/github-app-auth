@@ -1,5 +1,5 @@
 import { create, getNumericDate } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
-import { decodeBase64 } from "jsr:@std/encoding@^1.0.5"
+import { decodeBase64 } from "jsr:@std/encoding@^1.0.5";
 
 function pemToBinary(pem: string): Uint8Array {
   const base64 = pem
@@ -8,7 +8,10 @@ function pemToBinary(pem: string): Uint8Array {
   return decodeBase64(base64);
 }
 
-export async function appJwt(appId: string, pkcs8PrivateKey: string): Promise<string> {
+export async function appJwt(
+  appId: string,
+  pkcs8PrivateKey: string,
+): Promise<string> {
   const buffer = pemToBinary(pkcs8PrivateKey);
   const key = await crypto.subtle.importKey(
     "pkcs8",
@@ -28,6 +31,6 @@ export async function appJwt(appId: string, pkcs8PrivateKey: string): Promise<st
       iat: getNumericDate(0), // issued at time (now)
       exp: getNumericDate(5 * 60), // expiration time (in 5 minutes)
     },
-    key
+    key,
   );
 }
