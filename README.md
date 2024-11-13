@@ -17,11 +17,19 @@ Then you can use it as `github_app_auth ...`.
 #### Expected inputs
 
 - `app-id`: you can find it in the application settings
-- `private-key`: Base64-encoded content of the private key `.pem` file you got when you created the app
+- `private-key`: Base64-encoded content of the private key `.pem` file you got when you created the app, converted into pkcs8 format
 - `installation-id`: organization or user installation ID you want to get access to
 - `repositories` (optional, trail-arg): list of repositories to give access to; if not provided, it will be all repositories that the installation can access
 
 See the [API endpoint documentation](https://docs.github.com/en/rest/reference/apps#create-an-installation-access-token-for-an-app) for more info.
+
+#### Converting the GitHub Private Key
+
+The private key that github generates is a `pkcs1` format key but Deno only supports `pkcs8`. To convert it you can use openssl:
+
+```sh
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in ~/Downloads/example.2024-11-12.private-key.pem -out private-key.key
+```
 
 #### GitHub API URL
 
