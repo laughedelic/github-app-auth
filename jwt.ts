@@ -1,4 +1,4 @@
-import { create, getNumericDate } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
+import { create, getNumericDate } from "jsr:@zaubrik/djwt@^v3.0.2";
 import { decodeBase64 } from "jsr:@std/encoding@^1.0.5";
 
 function pemToBinary(pem: string): Uint8Array {
